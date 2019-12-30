@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
 
 import { connect } from "react-redux";
 import { increment, decrement } from "../store/actions/counter.js";
 
 import Colors from "../constants/Colors.js";
+import {MOMENTOS,ODAS} from "../data/dummy_data.js"
 
 const Counter = ({ count, dispatch }) => {
-  console.log("HOLA")
   return (
     <View style={styles.container}>
       <TouchableOpacity

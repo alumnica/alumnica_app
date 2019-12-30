@@ -6,6 +6,7 @@ import { AppLoading } from "expo";
 import { createStore, combineReducers } from "redux";
 import { Provider } from "react-redux";
 
+import AppNavigator from "./navigation/AppNavigator.js"
 import counterReducer from "./store/reducers/counter.js";
 import Counter from "./components/Counter.js"
 
@@ -35,7 +36,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-        <Counter/>
+        <AppNavigator/>
     </Provider>
   );
 }
