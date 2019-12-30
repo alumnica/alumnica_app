@@ -7,11 +7,11 @@ import { createStore, combineReducers } from "redux";
 import { Provider } from "react-redux";
 
 import AppNavigator from "./navigation/AppNavigator.js"
-import counterReducer from "./store/reducers/counter.js";
-import Counter from "./components/Counter.js"
+import odasReducer from "./store/reducers/odas.js";
+import momentosReducer from "./store/reducers/momentos.js";
 
 const rootReducer = combineReducers({
-  counter: counterReducer
+  odas: odasReducer, momentos: momentosReducer
 });
 
 const store = createStore(rootReducer);
