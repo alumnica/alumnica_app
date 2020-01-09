@@ -5,11 +5,13 @@ import { createStackNavigator } from "react-navigation-stack";
 
 import OdaSelectionScreen from "../screens/OdaSelectionScreen.js";
 import MomentoSelectionScreen from "../screens/MomentoSelectionScreen.js";
+import ContentScreen from "../screens/ContentScreen.js"
 
 const AppNavigation = createStackNavigator(
   {
     Odas: OdaSelectionScreen,
-    Momentos: MomentoSelectionScreen
+    Momentos: MomentoSelectionScreen,
+    Content: ContentScreen
   },
   {
     initialRouteName: "Odas"

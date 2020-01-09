@@ -1,9 +1,8 @@
 class Momento {
-  constructor(id, odaID, type, content) {
+  constructor(id, odaID, type) {
     this.id = id;
     this.odaID = odaID;
     this.type = type;
-    this.content = content;
   }
 }
 

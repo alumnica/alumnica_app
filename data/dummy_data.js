@@ -28,7 +28,7 @@ ODAS.forEach(oda => {
     "Evaluación"
   ];
   names.forEach(name => {
-    let momento = new Momento(count, id, name, []);
+    let momento = new Momento(count.toString(), id, name);
     momentos.push(momento);
     count++;
   });

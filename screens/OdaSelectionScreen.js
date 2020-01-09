@@ -12,19 +12,18 @@ import Colors from "../constants/Colors.js";
 
 const OdaSelectionScreen = props => {
   const renderODA = itemData => {
-    let backgroundColor = Colors.white
-    let fontColor = Colors.black
-    if(itemData.item.id%2===0){
-      backgroundColor = Colors.black
-      fontColor = Colors.white
+    let backgroundColor = "#fff";
+    let fontColor = "#000";
+    if (itemData.item.id % 2 === 0) {
+      fontColor = "#000";
     }
 
     return (
       <TouchableOpacity
-        style={{...styles.container, backgroundColor: backgroundColor}}
+        style={{ ...styles.container, backgroundColor: backgroundColor }}
         onPress={() => {
           props.navigation.navigate({
-            routeName: 'Momentos',
+            routeName: "Momentos",
             params: {
               odaID: itemData.item.id,
               title: itemData.item.title
@@ -32,7 +31,9 @@ const OdaSelectionScreen = props => {
           });
         }}
       >
-        <Text style={{...styles.text, color: fontColor}}>{itemData.item.title}</Text>
+        <Text style={{ ...styles.text, color: fontColor }}>
+          {itemData.item.title}
+        </Text>
       </TouchableOpacity>
     );
   };
@@ -42,14 +43,30 @@ const OdaSelectionScreen = props => {
       keyExtractor={(item, index) => item.id}
       data={props.odas}
       renderItem={renderODA}
+      style={{backgroundColor: "#F7F8FC"}}
     />
   );
 };
 
 const styles = StyleSheet.create({
-  container: { paddingTop: 40,paddingBottom:40, flex: 1, alignItems: "center", justifyContent: "center"},
+  container: {
+    shadowColor: "rgba(0,0,0,0.11)",
+    shadowOffset: {
+      width: 1.5,
+      height: 1.5
+    },
+    shadowRadius: 6,
+    shadowOpacity: 1,
+    margin: 15,
+    borderRadius: 12,
+    paddingTop: 40,
+    paddingBottom: 40,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  },
   text: {
-    fontFamily: "lato-bold",
+    fontFamily: "lato-black",
     fontSize: 30
   }
 });
