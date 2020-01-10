@@ -14,7 +14,7 @@ const AppNavigation = createStackNavigator(
     Content: ContentScreen
   },
   {
-    initialRouteName: "Odas"
+    initialRouteName: "Odas", defaultNavigationOptions: {title: "Alúmnica"}
   }
 );
 

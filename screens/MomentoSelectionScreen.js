@@ -12,13 +12,16 @@ import { connect } from "react-redux";
 import Colors from "../constants/Colors.js";
 
 const MomentoSelectionScreen = props => {
-  const renderODA = itemData => {
+  const renderMomento = itemData => {
     return (
       <TouchableOpacity
         style={styles.container}
         onPress={() => {
           props.navigation.navigate({
-            routeName: "Content"
+            routeName: "Content",
+            params: {
+              momentoID: itemData.item.id
+            }
           });
         }}
       >
@@ -31,7 +34,7 @@ const MomentoSelectionScreen = props => {
     <FlatList
       keyExtractor={(item, index) => item.id}
       data={props.oda}
-      renderItem={renderODA}
+      renderItem={renderMomento}
     />
   );
 };
@@ -64,7 +67,6 @@ const styles = StyleSheet.create({
 const mapStateToProps = ({ momentos }, { navigation }) => {
   // const {navigation} = ownProps
   // const {momentos} = state
-
   const odaID = navigation.getParam("odaID");
   const oda = momentos.momentos.filter(momento => {
     return momento.odaID === odaID;

@@ -1,9 +1,8 @@
 class Contenido {
-  constructor(id, momentoID, type, content) {
+  constructor(id, momentoID, data) {
     this.id = id;
     this.momentoID = momentoID;
-    this.type = type;
-    this.src = src;
+    this.data = data;
   }
 }
 

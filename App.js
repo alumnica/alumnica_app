@@ -6,12 +6,15 @@ import { AppLoading } from "expo";
 import { createStore, combineReducers } from "redux";
 import { Provider } from "react-redux";
 
-import AppNavigator from "./navigation/AppNavigator.js"
+import AppNavigator from "./navigation/AppNavigator.js";
 import odasReducer from "./store/reducers/odas.js";
 import momentosReducer from "./store/reducers/momentos.js";
+import contentsReducer from "./store/reducers/contents.js";
 
 const rootReducer = combineReducers({
-  odas: odasReducer, momentos: momentosReducer
+  odas: odasReducer,
+  momentos: momentosReducer,
+  contents: contentsReducer
 });
 
 const store = createStore(rootReducer);
@@ -36,7 +39,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-        <AppNavigator/>
+      <AppNavigator />
     </Provider>
   );
 }

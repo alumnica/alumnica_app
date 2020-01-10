@@ -1,5 +1,6 @@
 import Momento from "../models/momento";
 import Oda from "../models/oda";
+import Content from "../models/content";
 
 export const ODAS = [
   new Oda("1", "Termodinámica"),
@@ -34,4 +35,65 @@ ODAS.forEach(oda => {
   });
 });
 
-export const MOMENTOS = momentos
+export const MOMENTOS = momentos;
+
+let contents = []
+count = 1;
+
+MOMENTOS.forEach(momento => {
+  let id = momento.id;
+  let data = [
+    [
+      {
+        type: "Text",
+        content:
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      },
+      {
+        type: "Image",
+        content: "../assets/img/modelar.png"
+      },
+      {
+        type: "Text",
+        content:
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      }
+    ],
+    [
+      {
+        type: "Image",
+        content: "../assets/img/modelar.png"
+      }
+    ],
+    [
+      {
+        type: "Image",
+        content: "../assets/img/aplicar.png"
+      },
+      {
+        type: "Image",
+        content: "../assets/img/conectar.png"
+      },
+      {
+        type: "Image",
+        content: "../assets/img/explorar.png"
+      },
+      {
+        type: "Image",
+        content: "../assets/img/integrar.png"
+      },
+      {
+        type: "Image",
+        content: "../assets/img/modelar.png"
+      }
+    ]
+  ];
+  let randomData = Math.floor(Math.random() * data.length);
+
+  let content = new Content(count.toString(), id, data[randomData]);
+  contents.push(content)
+  count++;
+});
+
+
+export const CONTENTS = contents;
