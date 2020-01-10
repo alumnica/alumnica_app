@@ -73,7 +73,7 @@ const SlideShow = props => {
     let content = props.content.data;
     return content.map((slide) => {
       return (
-        <Slide key={slide.id}>
+        <Slide key={slide.id} content={content}>
           <Text>Hola</Text>
         </Slide>
       );
