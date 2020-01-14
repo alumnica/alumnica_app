@@ -16,20 +16,12 @@ const SlideShow = props => {
   const [ratio, setRatio] = useState(1);
   const { width, height } = Dimensions.get("window");
 
-  console.log(props.content);
-
   const styles = StyleSheet.create({
     slide: {
       height: "92%",
       width: width,
       alignItems: "center",
       justifyContent: "center",
-      backgroundColor: "#ffdb5c"
-    },
-    text: {
-      fontSize: 30,
-      fontWeight: "bold",
-      textAlign: "left",
       backgroundColor: "#ffdb5c"
     },
     image: {
@@ -70,12 +62,11 @@ const SlideShow = props => {
   });
 
   const renderContents = () => {
-    let content = props.content.data;
+    let content = props.content;
+
     return content.map((slide) => {
       return (
-        <Slide key={slide.id} content={content}>
-          <Text>Hola</Text>
-        </Slide>
+        <Slide key={slide.id} content={slide}/>
       );
     });
   };

@@ -5,14 +5,14 @@ import { connect } from "react-redux";
 import SlideShow from "../components/SlideShow.js";
 
 const ContentScreen = props => {
-  return <SlideShow content={props.content}/>;
+  return <SlideShow content={props.content} />;
 };
 
 const mapStateToProps = ({ contents }, { navigation }) => {
   const momentoID = navigation.getParam("momentoID");
   const content = contents.contents.filter(content => {
     return content.momentoID === momentoID;
-  })[0];
+  });
 
   return { content };
 };

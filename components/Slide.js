@@ -6,12 +6,14 @@ import ImageAutoHeight from "./ImageAutoHeight.js";
 
 const Slide = props => {
   const renderContents = () => {
-    return props.content.map(content => {
-      switch (content.type) {
+    let content = props.content
+    return content.data.map((data,i) => {
+      let key = content.id + i.toString()
+      switch (data.type) {
         case "Text":
-          return <Text>{content.content}</Text>;
+          return <Text key={key} style={styles.text}>{data.content}</Text>;
         case "Image":
-          return <ImageAutoHeight src={require("../assets/img/conectar.png")} />;
+          return <ImageAutoHeight key={key} src={require("../assets/img/conectar.png")} />;
         default:
         return null
       }
@@ -46,6 +48,12 @@ const styles = StyleSheet.create({
     paddingBottom: "10%",
     paddingLeft: "5%",
     paddingRight: "5%"
+  },
+  text: {
+    fontSize: 30,
+    fontWeight: "bold",
+    textAlign: "left",
+    backgroundColor: "#ffdb5c"
   }
 });
 

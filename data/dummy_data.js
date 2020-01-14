@@ -88,10 +88,18 @@ MOMENTOS.forEach(momento => {
       }
     ]
   ];
-  let randomData = Math.floor(Math.random() * data.length);
+  const randomNumGenerator = () => {
+    let randomData = Math.floor(Math.random() * data.length)
+    return randomData
+  }
 
-  let content = new Content(count.toString(), id, data[randomData]);
-  contents.push(content)
+  contents.push(new Content(count.toString(), id, data[randomNumGenerator()]))
+  count++;
+
+  contents.push(new Content(count.toString(), id, data[randomNumGenerator()]))
+  count++;
+
+  contents.push(new Content(count.toString(), id, data[randomNumGenerator()]))
   count++;
 });
 
