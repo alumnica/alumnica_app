@@ -1,21 +1,48 @@
 import React from "react";
 import { View, StyleSheet, ScrollView, Dimensions, Text } from "react-native";
+import { Video } from "expo-av";
 const { width } = Dimensions.get("window");
 
 import ImageAutoHeight from "./ImageAutoHeight.js";
 
 const Slide = props => {
   const renderContents = () => {
-    let content = props.content
-    return content.data.map((data,i) => {
-      let key = content.id + i.toString()
+    let content = props.content;
+    return content.data.map((data, i) => {
+      let key = content.id + i.toString();
       switch (data.type) {
         case "Text":
-          return <Text key={key} style={styles.text}>{data.content}</Text>;
+          return (
+            <Text key={key} style={styles.text}>
+              {data.content}
+            </Text>
+          );
+          break;
         case "Image":
-          return <ImageAutoHeight key={key} src={require("../assets/img/conectar.png")} />;
+          return (
+            <ImageAutoHeight
+              key={key}
+              src={require("../assets/img/conectar.png")}
+            />
+          );
+          break;
+        case "Video":
+          return (
+            <Video
+              key={key}
+              source={ require("../assets/video/video.mp4") }
+              rate={1.0}
+              volume={1.0}
+              isMuted={false}
+              resizeMode="contain"
+              isLooping
+              useNativeControls={true}
+              style={{ width: width,height:"100%",backgroundColor:"white"}}
+            />
+          );
+          break;
         default:
-        return null
+          return null;
       }
     });
   };

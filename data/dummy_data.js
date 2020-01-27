@@ -67,6 +67,12 @@ MOMENTOS.forEach(momento => {
     ],
     [
       {
+        type: "Video",
+        content: "../assets/img/modelar.png"
+      }
+    ],
+    [
+      {
         type: "Image",
         content: "../assets/img/aplicar.png"
       },

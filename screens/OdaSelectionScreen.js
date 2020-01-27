@@ -39,12 +39,12 @@ const OdaSelectionScreen = props => {
   };
 
   return (
-    <FlatList
-      keyExtractor={(item, index) => item.id}
-      data={props.odas}
-      renderItem={renderODA}
-      style={{backgroundColor: "#F7F8FC"}}
-    />
+      <FlatList
+        keyExtractor={(item, index) => item.id}
+        data={props.odas}
+        renderItem={renderODA}
+        style={{ backgroundColor: "#F7F8FC" }}
+      />
   );
 };
 

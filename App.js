@@ -3,21 +3,25 @@ import { StyleSheet, Text, View } from "react-native";
 
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
+import thunk from "redux-thunk";
 
 import AppNavigator from "./navigation/AppNavigator.js";
+import FirebaseTests from "./screens/FirebaseTests.js";
 import odasReducer from "./store/reducers/odas.js";
 import momentosReducer from "./store/reducers/momentos.js";
 import contentsReducer from "./store/reducers/contents.js";
+import subjectsReducer from "./store/reducers/subjects.js";
 
 const rootReducer = combineReducers({
   odas: odasReducer,
   momentos: momentosReducer,
-  contents: contentsReducer
+  contents: contentsReducer,
+  subjects: subjectsReducer
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -36,10 +40,10 @@ export default function App() {
       <AppLoading startAsync={fetchFonts} onFinish={() => setIsReady(true)} />
     );
   }
-
+//Agregar AppNavigator al acabar tests
   return (
     <Provider store={store}>
-      <AppNavigator />
+      <FirebaseTests />
     </Provider>
   );
 }
