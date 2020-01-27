@@ -34,54 +34,20 @@ const FirebaseTests = props => {
     );
   };
 
-  return (
+  return(
     <View style={styles.container}>
-      <View
-        style={{
-          height: 80,
-          margin: 20,
-          flexDirection: "row",
-          width: "90%",
-          alignItems: "center",
-          justifyContent: "center"
-        }}
-      >
-        <View
-          style={{
-            height: "90%",
-            width: "65%",
-            backgroundColor: "white",
-            borderBottomColor: "#000000",
-            borderBottomWidth: 1,
-            margin: 10
-          }}
-        >
+      <View style={styles.buttonInputContainer}>
+        <View style={styles.inputContainer}>
           <TextInput
-            style={{
-              height: "100%",
-              width: "100%",
-              fontSize: 32
-            }}
+            style={styles.input}
             maxLength={40}
             onChangeText={text => setTextInput(text)}
             value={textInput}
           />
         </View>
-        <View
-          style={{
-            height: "90%",
-            width: "25%",
-            alignItems: "center",
-            justifyContent: "center"
-          }}
-        >
+        <View style={styles.buttonContainer}>
           <TouchableOpacity
-            style={{
-              height: "100%",
-              width: "100%",
-              alignItems: "center",
-              justifyContent: "center"
-            }}
+            style={styles.button}
             onPress={() => {
               onSubmit();
             }}
@@ -107,45 +73,46 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 40
   },
+  buttonInputContainer: {
+    height: 80,
+    margin: 20,
+    flexDirection: "row",
+    width: "90%",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  inputContainer: {
+    height: "90%",
+    width: "65%",
+    backgroundColor: "white",
+    borderBottomColor: "#000000",
+    borderBottomWidth: 1,
+    margin: 10
+  },
+  input: {
+    height: "100%",
+    width: "100%",
+    fontSize: 32
+  },
+  buttonContainer: {
+    height: "90%",
+    width: "25%",
+    alignItems: "center",
+    justifyContent: "center"
+  },
   text: {
     fontFamily: "lato-black",
     fontSize: 30
   },
-  materiaContainer: { paddingBottom: 20 },
-  touchable: {
-    width: "25%",
-    height: 100,
-    borderRadius: 5,
+  materiaContainer: { paddingTop: 20 },
+  button: {
+    height: "100%",
+    width: "100%",
     alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "green"
+    justifyContent: "center"
   }
 });
-// <View
-//   style={{
-//     height: 100,
-//     width: "65%",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     flex: 1,
-//     backgroundColor: "pink"
-//   }}
-// >
-//   <TextInput
-//     style={{
-//       backgroundColor: "blue",
-//       widht: "100%",
-//       borderBottomColor: "#000000",
-//       borderBottomWidth: 1
-//     }}
-//     onChangeText={text => setTextInput(text)}
-//     value={textInput}
-//   />
-// </View>
-//
-// <TouchableOpacity style={styles.touchable}>
-//   <Text style={{ ...styles.text, fontSize: 80 }}>+</Text>
-// </TouchableOpacity>
+
 const mapStateToProps = state => ({
   subjects: state.subjects.subjects
 });
