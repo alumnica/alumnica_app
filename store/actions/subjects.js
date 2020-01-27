@@ -9,11 +9,13 @@ export const fetchSubjects = () => async dispatch => {
 };
 
 export const submitSubject = (nombre, id) => async dispatch => {
-  db.collection("materias")
+  await db.collection("materias")
     .doc(id)
     .set({
       nombre
     });
+
+  fetchSubjects()
 
   dispatch({ type: "SUBMIT_SUBJECTS"});
 };
