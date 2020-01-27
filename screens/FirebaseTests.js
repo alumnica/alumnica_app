@@ -20,9 +20,9 @@ const FirebaseTests = props => {
 
   const onSubmit = () => {
     if (textInput.length > 4) {
-      let id = "m" + props.subjects.length.toString();
-      props.submitSubject(textInput,id);
-      setTextInput("")
+      let id = "m" + (props.subjects.length + 1).toString();
+      props.submitSubject(textInput, id);
+      setTextInput("");
     }
   };
 
@@ -83,7 +83,7 @@ const FirebaseTests = props => {
               justifyContent: "center"
             }}
             onPress={() => {
-              onSubmit()
+              onSubmit();
             }}
           >
             <Text style={{ ...styles.text, fontSize: 60 }}>+</Text>
