@@ -9,35 +9,42 @@ import {
   KeyboardAvoidingView
 } from "react-native";
 
-import db from "../../config/firebase.js";
+import db from "../config/firebase.js";
 
 const FirebaseTestsSnapShot = props => {
   const [materiasRef, setMateriasRef] = useState("");
   const [data, setData] = useState([]);
+  const [textInput, setTextInput] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
-      let ref = await db.collection("materias");
-      setMateriasRef(ref);
-      let unsubscribe = await ref.onSnapshot(querySnapshot => {
-        let docs = querySnapshot.docs;
-        setData(docs);
-      });
-    };
+    // const fetchData = async () => {
+    //   let ref = await db.collection("materias");
+    //   setMateriasRef(ref);
+    //   let unsubscribe = await ref.onSnapshot(querySnapshot => {
+    //     let rawDocs = querySnapshot.docs;
+    //     setData(rawDocs);
+    //   });
+    // };
+    // fetchData();
+    let ref = db.collection("materias");
+    setMateriasRef(ref);
 
-    fetchData();
+    let unsubscribe = ref.onSnapshot(querySnapshot => {
+      let rawDocs = querySnapshot.docs;
+      setData(rawDocs);
+    });
 
     return () => {
       unsubscribe();
     };
   }, []);
 
-  const [textInput, setTextInput] = useState("");
-
   const onSubmit = () => {
-    if (textInput.length > 4) {
-      let id = "m" + (props.subjects.length + 1).toString();
-      props.submitSubject(textInput, id);
+    if (textInput.length >= 4) {
+      let id = "m" + (data.length + 1).toString();
+      materiasRef.doc(id).set({
+        nombre: textInput
+      });
       setTextInput("");
     }
   };
@@ -72,12 +79,13 @@ const FirebaseTestsSnapShot = props => {
           </TouchableOpacity>
         </View>
       </View>
-
-      <FlatList
-        keyExtractor={(item, index) => item.id}
-        data={docs}
-        renderItem={renderMateria}
-      />
+      <View style={{ flex: 1, width: "100%" }}>
+        <FlatList
+          keyExtractor={(item, index) => item.id}
+          data={data}
+          renderItem={renderMateria}
+        />
+      </View>
     </View>
   );
 };
@@ -120,7 +128,7 @@ const styles = StyleSheet.create({
     fontFamily: "lato-black",
     fontSize: 30
   },
-  materiaContainer: { paddingTop: 20 },
+  materiaContainer: { paddingTop: 20, alignItems: "center" },
   button: {
     height: "100%",
     width: "100%",
@@ -128,5 +136,6 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
+
 
 export default FirebaseTestsSnapShot;
