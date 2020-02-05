@@ -9,7 +9,7 @@ import {
   KeyboardAvoidingView
 } from "react-native";
 
-import db from "../config/firebase.js";
+import { db } from "../config/firebase.js";
 
 const FirebaseTestsSnapShot = props => {
   const [materiasRef, setMateriasRef] = useState("");
@@ -136,6 +136,5 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
-
 
 export default FirebaseTestsSnapShot;

@@ -8,7 +8,7 @@ import {
   Text
 } from "react-native";
 import Swiper from "react-native-swiper";
-
+3
 import Slide from "./Slide.js";
 import ImageAutoHeight from "./ImageAutoHeight.js";
 
@@ -64,10 +64,8 @@ const SlideShow = props => {
   const renderContents = () => {
     let content = props.content;
 
-    return content.map((slide) => {
-      return (
-        <Slide key={slide.id} content={slide}/>
-      );
+    return content.map(slide => {
+      return <Slide key={slide.id} content={slide} />;
     });
   };
 

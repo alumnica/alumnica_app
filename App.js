@@ -9,6 +9,7 @@ import thunk from "redux-thunk";
 
 import AppNavigator from "./navigation/AppNavigator.js";
 import FirebaseTestsSnapShot from "./screens/FirebaseTestsSnapShot.js";
+import LoginScreen from "./screens/LoginScreen.js";
 import odasReducer from "./store/reducers/odas.js";
 import momentosReducer from "./store/reducers/momentos.js";
 import contentsReducer from "./store/reducers/contents.js";
@@ -43,7 +44,7 @@ export default function App() {
 //Agregar AppNavigator al acabar tests
   return (
     <Provider store={store}>
-      <FirebaseTestsSnapShot />
+      <AppNavigator />
     </Provider>
   );
 }
