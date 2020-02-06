@@ -7,19 +7,21 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
-import AppNavigator from "./navigation/AppNavigator.js";
+import AppNavigatorV5 from "./navigation/AppNavigatorV5.js";
 import FirebaseTestsSnapShot from "./screens/FirebaseTestsSnapShot.js";
 import LoginScreen from "./screens/LoginScreen.js";
 import odasReducer from "./store/reducers/odas.js";
 import momentosReducer from "./store/reducers/momentos.js";
 import contentsReducer from "./store/reducers/contents.js";
 import subjectsReducer from "./store/reducers/subjects.js";
+import userAuthReducer from "./store/reducers/userAuth.js";
 
 const rootReducer = combineReducers({
   odas: odasReducer,
   momentos: momentosReducer,
   contents: contentsReducer,
-  subjects: subjectsReducer
+  subjects: subjectsReducer,
+  userAuth: userAuthReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
@@ -44,7 +46,7 @@ export default function App() {
 //Agregar AppNavigator al acabar tests
   return (
     <Provider store={store}>
-      <AppNavigator />
+      <AppNavigatorV5 />
     </Provider>
   );
 }

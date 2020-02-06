@@ -8,6 +8,8 @@ import {
 } from "react-native";
 
 import { db, auth } from "../config/firebase.js";
+import { handleSignUp } from "../store/actions/userAuth.js";
+import { connect } from "react-redux";
 import Colors from "../constants/Colors.js";
 
 const SignUpScreen = props => {
@@ -21,19 +23,20 @@ const SignUpScreen = props => {
       passwordConfirmation &&
       password === passwordConfirmation
     ) {
-      auth
-        .createUserWithEmailAndPassword(email, password)
-        .catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          if (errorCode == "auth/weak-password") {
-            alert("The password is too weak.");
-          } else {
-            alert(errorMessage);
-          }
-          console.log(error);
-        });
+      // auth
+      //   .createUserWithEmailAndPassword(email, password)
+      //   .catch(function(error) {
+      //     // Handle Errors here.
+      //     var errorCode = error.code;
+      //     var errorMessage = error.message;
+      //     if (errorCode == "auth/weak-password") {
+      //       alert("The password is too weak.");
+      //     } else {
+      //       alert(errorMessage);
+      //     }
+      //     console.log(error);
+      //   });
+      props.handleSignUp(email,password)
     } else if (password !== passwordConfirmation) {
       alert("La contraseña y la confirmación de contraseña no son iguales");
     }
@@ -87,9 +90,8 @@ const SignUpScreen = props => {
         <Text style={styles.signUpText}>¿Ya tienes cuenta? </Text>
         <TouchableOpacity
           onPress={() => {
-            props.navigation.replace({
-              routeName: "LogIn"
-            });
+            props.navigation.replace("LogIn"
+            );
           }}
         >
           <Text
@@ -106,10 +108,6 @@ const SignUpScreen = props => {
       </View>
     </View>
   );
-};
-
-SignUpScreen.navigationOptions = {
-  headerShown: false
 };
 
 const styles = StyleSheet.create({
@@ -189,4 +187,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SignUpScreen;
+export default connect(null,{handleSignUp})(SignUpScreen);

@@ -8,6 +8,8 @@ import {
 } from "react-native";
 
 import { db, auth } from "../config/firebase.js";
+import { handleSignIn } from "../store/actions/userAuth.js";
+import { connect } from "react-redux";
 import Colors from "../constants/Colors.js";
 
 const LoginScreen = props => {
@@ -15,26 +17,27 @@ const LoginScreen = props => {
   const [email, setEmail] = useState("");
 
   const handleLogIn = (email, password) => {
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then(user => {
-        if (user) {
-          console.log("log");
-        }
-      })
-      .catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        if (errorCode === "auth/wrong-password") {
-          alert("Tu constraseña es incorrecta");
-        } else if (errorCode === "auth/user-not-found") {
-          alert("Ese email no esta registrado con ningun usuario.");
-        } else {
-          alert(errorMessage);
-        }
-        console.log(error);
-      });
+    // auth
+    //   .signInWithEmailAndPassword(email, password)
+    //   .then(user => {
+    //     if (user) {
+    //       console.log("log");
+    //     }
+    //   })
+    //   .catch(function(error) {
+    //     // Handle Errors here.
+    //     var errorCode = error.code;
+    //     var errorMessage = error.message;
+    //     if (errorCode === "auth/wrong-password") {
+    //       alert("Tu constraseña es incorrecta");
+    //     } else if (errorCode === "auth/user-not-found") {
+    //       alert("Ese email no esta registrado con ningun usuario.");
+    //     } else {
+    //       alert(errorMessage);
+    //     }
+    //     console.log(error);
+    //   });
+    props.handleSignIn(email,password)
   };
 
   return (
@@ -70,9 +73,9 @@ const LoginScreen = props => {
         <Text style={styles.signUpText}>¿No tienes cuenta? </Text>
         <TouchableOpacity
           onPress={() => {
-            props.navigation.replace({
-              routeName: "SignUp"
-            });
+            props.navigation.replace(
+              "SignUp"
+            );
           }}
         >
           <Text
@@ -89,10 +92,6 @@ const LoginScreen = props => {
       </View>
     </View>
   );
-};
-
-LoginScreen.navigationOptions = {
-  headerShown: false
 };
 
 const styles = StyleSheet.create({
@@ -172,4 +171,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LoginScreen;
+export default connect(null,{handleSignIn})(LoginScreen);
