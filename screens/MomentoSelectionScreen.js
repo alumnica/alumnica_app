@@ -17,11 +17,8 @@ const MomentoSelectionScreen = props => {
       <TouchableOpacity
         style={styles.container}
         onPress={() => {
-          props.navigation.navigate({
-            routeName: "Content",
-            params: {
-              momentoID: itemData.item.id
-            }
+          props.navigation.navigate("Contenidos", {
+            momentoID: itemData.item.id
           });
         }}
       >
@@ -37,14 +34,6 @@ const MomentoSelectionScreen = props => {
       renderItem={renderMomento}
     />
   );
-};
-
-MomentoSelectionScreen.navigationOptions = navigationData => {
-  const odaTitle = navigationData.navigation.getParam("title");
-
-  return {
-    headerTitle: odaTitle
-  };
 };
 
 const styles = StyleSheet.create({
@@ -64,10 +53,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ momentos }, { navigation }) => {
+const mapStateToProps = ({ momentos }, { navigation, route }) => {
   // const {navigation} = ownProps
   // const {momentos} = state
-  const odaID = navigation.getParam("odaID");
+  const { odaID } = route.params;
   const oda = momentos.momentos.filter(momento => {
     return momento.odaID === odaID;
   });

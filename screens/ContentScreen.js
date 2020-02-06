@@ -8,8 +8,8 @@ const ContentScreen = props => {
   return <SlideShow content={props.content} />;
 };
 
-const mapStateToProps = ({ contents }, { navigation }) => {
-  const momentoID = navigation.getParam("momentoID");
+const mapStateToProps = ({ contents }, { navigation, route }) => {
+  const { momentoID } = route.params;
   const content = contents.contents.filter(content => {
     return content.momentoID === momentoID;
   });

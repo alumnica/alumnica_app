@@ -22,12 +22,9 @@ const OdaSelectionScreen = props => {
       <TouchableOpacity
         style={{ ...styles.container, backgroundColor: backgroundColor }}
         onPress={() => {
-          props.navigation.navigate({
-            routeName: "Momentos",
-            params: {
-              odaID: itemData.item.id,
-              title: itemData.item.title
-            }
+          props.navigation.navigate("Momentos", {
+            odaID: itemData.item.id,
+            title: itemData.item.title
           });
         }}
       >
@@ -39,12 +36,12 @@ const OdaSelectionScreen = props => {
   };
 
   return (
-      <FlatList
-        keyExtractor={(item, index) => item.id}
-        data={props.odas}
-        renderItem={renderODA}
-        style={{ backgroundColor: "#F7F8FC" }}
-      />
+    <FlatList
+      keyExtractor={(item, index) => item.id}
+      data={props.odas}
+      renderItem={renderODA}
+      style={{ backgroundColor: "#F7F8FC" }}
+    />
   );
 };
 

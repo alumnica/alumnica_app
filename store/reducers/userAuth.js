@@ -9,26 +9,25 @@ const userAuthReducer = (state = initialState, action) => {
     case "RESTORE_TOKEN":
       return {
         ...state,
-        userToken: action.token,
+        userToken: action.payload,
         isLoading: false
       };
     case "SIGN_IN":
       return {
         ...state,
         isSignout: false,
-        userToken: action.token
+        userToken: action.payload
       };
     case "SIGN_UP":
       return {
         ...state,
         isSignout: false,
-        userToken: action.token
+        userToken: action.payload
       };
     case "SIGN_OUT":
       return {
         ...state,
-        isSignout: true,
-        userToken: undefined
+        userToken: null
       };
     default:
       return state;
