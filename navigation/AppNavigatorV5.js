@@ -10,6 +10,8 @@ import MomentoSelectionScreen from "../screens/MomentoSelectionScreen.js";
 import ContentScreen from "../screens/ContentScreen.js";
 import LoginScreen from "../screens/LoginScreen.js";
 import SignUpScreen from "../screens/SignUpScreen.js";
+import FirebaseTestsSnapShot from "../screens/FirebaseTestsSnapShot.js";
+import Loading from "../components/ErrorPage.js";
 import { handleSignOut, getLocalToken } from "../store/actions/userAuth.js";
 
 const Stack = createStackNavigator();
@@ -44,11 +46,15 @@ const AppNavigatorV5 = props => {
                   props.handleSignOut();
                 }}
               >
-                <Feather name="log-out" size={32} color="red" />
+                <Feather name="log-out" size={32} color="#15527F" />
               </TouchableOpacity>
-            )
+            ),
+            headerStyle: {
+              backgroundColor: "#FFCE1F"
+            }
           }}
         >
+          <Stack.Screen name="fire" component={FirebaseTestsSnapShot} />
           <Stack.Screen name="ODAs" component={OdaSelectionScreen} />
           <Stack.Screen name="Momentos" component={MomentoSelectionScreen} />
           <Stack.Screen name="Contenidos" component={ContentScreen} />

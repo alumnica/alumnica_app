@@ -8,6 +8,8 @@ import {
   TextInput,
   KeyboardAvoidingView
 } from "react-native";
+import ErrorPage from "../components/ErrorPage.js";
+import Loading from "../components/Loading.js";
 
 import { db } from "../config/firebase.js";
 
@@ -15,6 +17,7 @@ const FirebaseTestsSnapShot = props => {
   const [materiasRef, setMateriasRef] = useState("");
   const [data, setData] = useState([]);
   const [textInput, setTextInput] = useState("");
+  const [status, setStatus] = useState("loading");
 
   useEffect(() => {
     // const fetchData = async () => {
@@ -29,15 +32,60 @@ const FirebaseTestsSnapShot = props => {
     let ref = db.collection("materias");
     setMateriasRef(ref);
 
-    let unsubscribe = ref.onSnapshot(querySnapshot => {
-      let rawDocs = querySnapshot.docs;
-      setData(rawDocs);
-    });
+    let unsubscribe = ref.onSnapshot(
+      querySnapshot => {
+        let rawDocs = querySnapshot.docs;
+        setData(rawDocs);
+        setStatus("ready");
+      },
+      e => {
+        console.log(e);
+        setStatus("error");
+      }
+    );
 
     return () => {
       unsubscribe();
     };
   }, []);
+
+//enum for conditional rendering depending on status
+  const renderContent = renderMateria => ({
+    loading: <Loading />,
+    error: <ErrorPage />,
+    ready: (
+      <View style={styles.container}>
+        <View style={styles.buttonInputContainer}>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              maxLength={40}
+              onChangeText={text => setTextInput(text)}
+              value={textInput}
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                onSubmit();
+              }}
+            >
+              <Text style={{ ...styles.text, fontSize: 60 }}>+</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={{ flex: 1, width: "100%" }}>
+          <FlatList
+            keyExtractor={(item, index) => item.id}
+            data={data}
+            renderItem={renderMateria}
+          />
+        </View>
+      </View>
+    )
+  });
+
 
   const onSubmit = () => {
     if (textInput.length >= 4) {
@@ -56,38 +104,7 @@ const FirebaseTestsSnapShot = props => {
       </View>
     );
   };
-
-  return (
-    <View style={styles.container}>
-      <View style={styles.buttonInputContainer}>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            maxLength={40}
-            onChangeText={text => setTextInput(text)}
-            value={textInput}
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              onSubmit();
-            }}
-          >
-            <Text style={{ ...styles.text, fontSize: 60 }}>+</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={{ flex: 1, width: "100%" }}>
-        <FlatList
-          keyExtractor={(item, index) => item.id}
-          data={data}
-          renderItem={renderMateria}
-        />
-      </View>
-    </View>
-  );
+  return renderContent(renderMateria)[status];
 };
 
 const styles = StyleSheet.create({
@@ -95,7 +112,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     flex: 1,
-    marginTop: 40
+    backgroundColor: "white"
   },
   buttonInputContainer: {
     height: 80,
