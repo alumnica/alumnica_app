@@ -1,3 +1,5 @@
+import {RESTORE_TOKEN,SIGN_IN,SIGN_UP,SIGN_OUT} from "../actions/types.js"
+
 const initialState = {
   isLoading: true,
   isSignout: false,
@@ -6,25 +8,25 @@ const initialState = {
 
 const userAuthReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "RESTORE_TOKEN":
+    case RESTORE_TOKEN:
       return {
         ...state,
         userToken: action.payload,
         isLoading: false
       };
-    case "SIGN_IN":
+    case SIGN_IN:
       return {
         ...state,
         isSignout: false,
         userToken: action.payload
       };
-    case "SIGN_UP":
+    case SIGN_UP:
       return {
         ...state,
         isSignout: false,
         userToken: action.payload
       };
-    case "SIGN_OUT":
+    case SIGN_OUT:
       return {
         ...state,
         userToken: null

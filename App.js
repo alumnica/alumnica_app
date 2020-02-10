@@ -3,28 +3,16 @@ import { StyleSheet, Text, View } from "react-native";
 
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
-import AppNavigatorV5 from "./navigation/AppNavigatorV5.js";
-import FirebaseTestsSnapShot from "./screens/FirebaseTestsSnapShot.js";
-import LoginScreen from "./screens/LoginScreen.js";
-import odasReducer from "./store/reducers/odas.js";
-import momentosReducer from "./store/reducers/momentos.js";
-import contentsReducer from "./store/reducers/contents.js";
-import subjectsReducer from "./store/reducers/subjects.js";
-import userAuthReducer from "./store/reducers/userAuth.js";
+import AppNavigator from "./navigation/AppNavigator.js";
 
-const rootReducer = combineReducers({
-  odas: odasReducer,
-  momentos: momentosReducer,
-  contents: contentsReducer,
-  subjects: subjectsReducer,
-  userAuth: userAuthReducer
-});
+import reducers from "./store/reducers"
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+
+const store = createStore(reducers, applyMiddleware(thunk));
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -46,7 +34,7 @@ export default function App() {
 //Agregar AppNavigator al acabar tests
   return (
     <Provider store={store}>
-      <AppNavigatorV5 />
+      <AppNavigator />
     </Provider>
   );
 }
