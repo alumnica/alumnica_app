@@ -12,18 +12,18 @@ import LoginScreen from "../screens/LoginScreen.js";
 import SignUpScreen from "../screens/SignUpScreen.js";
 import FirebaseTestsSnapShot from "../screens/FirebaseTestsSnapShot.js";
 import Loading from "../components/ErrorPage.js";
-import { handleSignOut, getLocalToken } from "../store/actions/userAuth.js";
+import { handleSignOut, getLocalToken } from "../store/actions/auth.js";
 
 const Stack = createStackNavigator();
 
-const AppNavigatorV5 = props => {
+const AppNavigator = props => {
   useEffect(() => {
     props.getLocalToken();
   }, []);
 
   return (
     <NavigationContainer>
-      {props.auth.userToken === null ? (
+      {props.auth.user === null ? (
         <Stack.Navigator>
           <Stack.Screen
             name="LogIn"
@@ -65,10 +65,10 @@ const AppNavigatorV5 = props => {
 };
 
 const mapStateToProps = state => ({
-  auth: state.userAuth
+  auth: state.auth
 });
 
 export default connect(
   mapStateToProps,
   { handleSignOut, getLocalToken }
-)(AppNavigatorV5);
+)(AppNavigator);

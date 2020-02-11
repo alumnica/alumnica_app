@@ -8,7 +8,7 @@ import {
 } from "react-native";
 
 import { db, auth } from "../config/firebase.js";
-import { handleSignUp } from "../store/actions/userAuth.js";
+import { handleSignUp } from "../store/actions/auth.js";
 import { connect } from "react-redux";
 import Colors from "../constants/Colors.js";
 
