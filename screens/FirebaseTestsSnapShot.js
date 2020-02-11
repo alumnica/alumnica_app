@@ -8,10 +8,12 @@ import {
   TextInput,
   KeyboardAvoidingView
 } from "react-native";
-import ErrorPage from "../components/ErrorPage.js";
-import Loading from "../components/Loading.js";
-
+import ErrorScreen from "./ErrorScreen.js";
+import LoadingScreen from "./LoadingScreen.js";
+import { connect } from "react-redux";
 import { db } from "../config/firebase.js";
+
+import { setError } from "../store/actions/status.js";
 
 const FirebaseTestsSnapShot = props => {
   const [materiasRef, setMateriasRef] = useState("");
@@ -39,8 +41,8 @@ const FirebaseTestsSnapShot = props => {
         setStatus("ready");
       },
       e => {
-        console.log(e);
-        setStatus("error");
+        console.log(e.message)
+        props.setError(e)
       }
     );
 
@@ -51,8 +53,8 @@ const FirebaseTestsSnapShot = props => {
 
 //enum for conditional rendering depending on status
   const renderContent = renderMateria => ({
-    loading: <Loading />,
-    error: <ErrorPage />,
+    loading: <LoadingScreen />,
+    error: <ErrorScreen />,
     ready: (
       <View style={styles.container}>
         <View style={styles.buttonInputContainer}>
@@ -154,4 +156,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default FirebaseTestsSnapShot;
+export default connect(null,{setError})(FirebaseTestsSnapShot);
