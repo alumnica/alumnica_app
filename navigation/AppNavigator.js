@@ -22,78 +22,54 @@ const AppNavigator = props => {
     props.getLocalUser();
   }, []);
 
-  const renderScreens = props => ({
-    loading: (
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Loading"
-          component={LoadingScreen}
-          options={{ headerShown: false, animationEnabled: false }}
-        />
-      </Stack.Navigator>
-    ),
-    error: (
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Error"
-          component={ErrorScreen}
-          options={{ headerShown: false, animationEnabled: false }}
-        />
-      </Stack.Navigator>
-    ),
-    ready: (
-      <Stack.Navigator
-        screenOptions={{
-          headerRight: () => (
-            <TouchableOpacity
-              style={{ marginRight: 20 }}
-              onPress={() => {
-                props.handleSignOut();
-              }}
-            >
-              <Feather name="log-out" size={32} color="#15527F" />
-            </TouchableOpacity>
-          ),
-          headerStyle: {
-            backgroundColor: "#FFCE1F"
-          }
-        }}
-      >
-        <Stack.Screen
-          name="🔥FireBaseSnapShot🔥"
-          component={FirebaseTestsSnapShot}
-        />
-        <Stack.Screen name="ODAs" component={OdaSelectionScreen} />
-        <Stack.Screen name="Momentos" component={MomentoSelectionScreen} />
-        <Stack.Screen name="Contenidos" component={ContentScreen} />
-      </Stack.Navigator>
-    ),
-    no_user: (
-      <Stack.Navigator>
-        <Stack.Screen
-          name="LogIn"
-          component={LoginScreen}
-          options={{ headerShown: false, animationEnabled: false }}
-        />
-        <Stack.Screen
-          name="SignUp"
-          component={SignUpScreen}
-          options={{ headerShown: false, animationEnabled: false }}
-        />
-      </Stack.Navigator>
-    )
-  });
-
   return (
     <NavigationContainer>
-    {renderScreens(props)[props.status]}
+      {props.user ? (
+        <Stack.Navigator
+          screenOptions={{
+            headerRight: () => (
+              <TouchableOpacity
+                style={{ marginRight: 20 }}
+                onPress={() => {
+                  props.handleSignOut();
+                }}
+              >
+                <Feather name="log-out" size={32} color="#15527F" />
+              </TouchableOpacity>
+            ),
+            headerStyle: {
+              backgroundColor: "#FFCE1F"
+            }
+          }}
+        >
+          <Stack.Screen
+            name="🔥FireBaseSnapShot🔥"
+            component={FirebaseTestsSnapShot}
+          />
+          <Stack.Screen name="ODAs" component={OdaSelectionScreen} />
+          <Stack.Screen name="Momentos" component={MomentoSelectionScreen} />
+          <Stack.Screen name="Contenidos" component={ContentScreen} />
+        </Stack.Navigator>
+      ) : (
+        <Stack.Navigator>
+          <Stack.Screen
+            name="LogIn"
+            component={LoginScreen}
+            options={{ headerShown: false, animationEnabled: false }}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUpScreen}
+            options={{ headerShown: false, animationEnabled: false }}
+          />
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   );
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth,
-  status: state.status.status
+  user: state.auth.user,
 });
 
 export default connect(

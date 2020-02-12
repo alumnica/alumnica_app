@@ -1,9 +1,5 @@
 export const FETCH_SUBJECTS = "FETCH_SUBJECTS";
 export const SUBMIT_SUBJECTS = "SUBMIT_SUBJECTS";
-export const RESTORE_TOKEN = "RESTORE_TOKEN";
-export const SIGN_IN = "SIGN_IN";
-export const SIGN_OUT = "SIGN_OUT";
-export const LOADING = "LOADING";
+export const SET_USER = "SET_USER";
+export const FORGET_USER = "FORGET_USER";
 export const SET_ERROR = "SET_ERROR";
-export const READY = "READY";
-export const TO_AUTH = "TO_AUTH";

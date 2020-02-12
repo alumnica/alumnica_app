@@ -16,35 +16,27 @@ const SignUpScreen = props => {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [email, setEmail] = useState("");
+  const [error, setError] = useState(" ");
 
-  const handleSignUp = (email, password, passwordConfirmation) => {
-    if (
-      password !== "" &&
-      passwordConfirmation &&
-      password === passwordConfirmation
-    ) {
-      // auth
-      //   .createUserWithEmailAndPassword(email, password)
-      //   .catch(function(error) {
-      //     // Handle Errors here.
-      //     var errorCode = error.code;
-      //     var errorMessage = error.message;
-      //     if (errorCode == "auth/weak-password") {
-      //       alert("The password is too weak.");
-      //     } else {
-      //       alert(errorMessage);
-      //     }
-      //     console.log(error);
-      //   });
-      props.handleSignUp(email,password)
-    } else if (password !== passwordConfirmation) {
-      alert("La contraseña y la confirmación de contraseña no son iguales");
+  const handleSignUp = async (email, password, passwordConfirmation) => {
+    setError(" ");
+    try {
+      if (password !== passwordConfirmation) {
+        throw {
+          message: "contraseña != comfirmación",
+          code: "auth/confimation"
+        };
+      }
+      await props.handleSignUp(email, password);
+    } catch (e) {
+      setError(e.code);
     }
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.form}>
+        <Text style={styles.error}>{error}</Text>
         <View style={styles.labelContainer}>
           <Text style={styles.label}>email</Text>
         </View>
@@ -90,8 +82,7 @@ const SignUpScreen = props => {
         <Text style={styles.signUpText}>¿Ya tienes cuenta? </Text>
         <TouchableOpacity
           onPress={() => {
-            props.navigation.replace("LogIn"
-            );
+            props.navigation.replace("LogIn");
           }}
         >
           <Text
@@ -184,7 +175,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center"
-  }
+  },
+  error: { color: "red", fontFamily: "lato-bold", fontSize: 20,marginBottom:20 }
 });
 
-export default connect(null,{handleSignUp})(SignUpScreen);
+export default connect(
+  null,
+  { handleSignUp }
+)(SignUpScreen);

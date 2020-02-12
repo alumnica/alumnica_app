@@ -15,34 +15,20 @@ import Colors from "../constants/Colors.js";
 const LoginScreen = props => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [error,setError] = useState(" ")
 
-  const handleLogIn = (email, password) => {
-    // auth
-    //   .signInWithEmailAndPassword(email, password)
-    //   .then(user => {
-    //     if (user) {
-    //       console.log("log");
-    //     }
-    //   })
-    //   .catch(function(error) {
-    //     // Handle Errors here.
-    //     var errorCode = error.code;
-    //     var errorMessage = error.message;
-    //     if (errorCode === "auth/wrong-password") {
-    //       alert("Tu constraseña es incorrecta");
-    //     } else if (errorCode === "auth/user-not-found") {
-    //       alert("Ese email no esta registrado con ningun usuario.");
-    //     } else {
-    //       alert(errorMessage);
-    //     }
-    //     console.log(error);
-    //   });
-    props.handleSignIn(email,password)
+  const handleLogIn = async (email, password) => {
+    try {
+      await props.handleSignIn(email, password);
+    } catch (e) {
+      setError(e);
+    }
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.form}>
+      <Text>{error}</Text>
         <View style={styles.labelContainer}>
           <Text style={styles.label}>email</Text>
         </View>
@@ -63,9 +49,13 @@ const LoginScreen = props => {
           value={password}
           secureTextEntry={true}
         />
-        <TouchableOpacity activeOpacity={0.5} style={styles.button} onPress={() => {
-          handleLogIn(email,password)
-        }}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.button}
+          onPress={() => {
+            handleLogIn(email, password);
+          }}
+        >
           <Text style={styles.buttonText}>Iniciar Sesión</Text>
         </TouchableOpacity>
       </View>
@@ -73,9 +63,7 @@ const LoginScreen = props => {
         <Text style={styles.signUpText}>¿No tienes cuenta? </Text>
         <TouchableOpacity
           onPress={() => {
-            props.navigation.replace(
-              "SignUp"
-            );
+            props.navigation.replace("SignUp");
           }}
         >
           <Text
@@ -171,4 +159,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null,{handleSignIn})(LoginScreen);
+export default connect(
+  null,
+  { handleSignIn }
+)(LoginScreen);

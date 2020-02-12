@@ -1,29 +1,17 @@
-import {RESTORE_TOKEN,SIGN_IN,SIGN_UP,SIGN_OUT} from "../actions/types.js"
+import { SET_USER, FORGET_USER } from "../actions/types.js";
 
 const initialState = {
-  user: null,
-  isLoading: false,
-  error: false
+  user: null
 };
 
 const userAuthReducer = (state = initialState, action) => {
   switch (action.type) {
-    case RESTORE_TOKEN:
-      return {
-        ...state,
-        user: action.payload,
-      };
-    case SIGN_IN:
+    case SET_USER:
       return {
         ...state,
         user: action.payload
       };
-    case SIGN_UP:
-      return {
-        ...state,
-        user: action.payload
-      };
-    case SIGN_OUT:
+    case FORGET_USER:
       return {
         ...state,
         user: null
